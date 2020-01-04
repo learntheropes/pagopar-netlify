@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config()
+import { Pagopar } from './pagopar'
 
 export const allowOrigin = (process.env.URL) ? '*' : 'http://localhost:3000'
 
@@ -34,3 +35,8 @@ export const checkMethod = (httpMethod, method, allowedHeaders) => {
   }
   else return null
 }
+
+export const pagopar = new Pagopar({
+  privateKey: process.env.PAGOPAR_PRIVATE,
+  publicKey: process.env.PAGOPAR_PUBLIC
+})

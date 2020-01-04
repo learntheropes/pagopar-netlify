@@ -1,23 +1,11 @@
-import { allowOrigin, checkMethod } from './lib'
-import axios from 'axios'
-import * as crypto from 'crypto'
-import dotenv from 'dotenv'
-dotenv.config()
+import { allowOrigin, checkMethod, pagopar } from './lib'
 
 exports.handler = async ({ httpMethod, body }) => {
   try {
     const notAllowed = checkMethod(httpMethod, 'POST', 'content-type')
     if (notAllowed) return notAllowed
 
-    payload.token = crypto
-    .createHash('sha1')
-    .update(process.env.PAGOPAR_PRIVATE + payload.id_pedido_comercio + payload.monto_total)
-    .digest('hex')
-
-    const {status, data } = await axios.post(
-      'https://api.pagopar.com/api/comercios/1.1/iniciar-transaccion',
-      JSON.parse(body)
-    )
+    const { status, data } = await pagopar.payment.create(body)
 
     return {
       statusCode : status,

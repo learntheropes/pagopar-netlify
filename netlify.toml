@@ -1,3 +1,7 @@
 [build]
-  command = "netlify-lambda build src"
-  functions = "./functions"
+  command="netlify-lambda build src"
+  functions="./functions"
+
+[build.environment]
+  PAGOPAR_PUBLIC=""
+  PAGOPAR_PRIVATE=""
